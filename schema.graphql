@@ -1,26 +1,52 @@
-type Approval @entity {
+type Token @entity {
   id: ID!
-  owner: Bytes! # address
-  approved: Bytes! # address
-  tokenId: BigInt! # uint256
+  tokenID: BigInt!
+  tokenUri: String!
+  ipfsURI: String!
+  image: String!
+  name: String!
+  external_url: String!
+  description: String!
+  description_uk: String!
+  artist_url: String!
+  twitter: Twitter! 
+  artist: String!
+  edition: Int!
+  updatedAtTimestamp: BigInt!
+  owner: User!
 }
 
-type ApprovalForAll @entity {
-  id: ID!
-  owner: Bytes! # address
-  operator: Bytes! # address
-  approved: Boolean! # bool
+type Twitter @entity {
+  url: String!
+  username: String!
+  tweet: String! 
+  token: Token! @derivedFrom(field: "twitter")  
 }
 
-type OwnershipTransferred @entity {
+type User @entity {
   id: ID!
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
+  tokens: [Token!]! @derivedFrom(field: "owner")
 }
 
-type Transfer @entity {
-  id: ID!
-  from: Bytes! # address
-  to: Bytes! # address
-  tokenId: BigInt! # uint256
-}
+type _Schema_ 
+  @fulltext(
+    name: "metaHistorySearch"
+    language: en
+    algorithm: rank
+    include: [
+      "entity": "Token",
+      fields: [
+        {
+          "name": "name"
+        },
+        {
+          "name": "description"
+        },
+        {
+          "name": "artist"
+        },
+      ]
+    ]
+
+  )
+
