@@ -1,0 +1,16 @@
+{
+  "name": "df-meta-history-museum-of-war",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "deploy": "graph deploy --node https://api.thegraph.com/deploy/ drewfrost/df-meta-history-museum-of-war",
+    "create-local": "graph create --node http://localhost:8020/ drewfrost/df-meta-history-museum-of-war",
+    "remove-local": "graph remove --node http://localhost:8020/ drewfrost/df-meta-history-museum-of-war",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 drewfrost/df-meta-history-museum-of-war"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.29.0",
+    "@graphprotocol/graph-ts": "0.26.0"
+  }
+}
