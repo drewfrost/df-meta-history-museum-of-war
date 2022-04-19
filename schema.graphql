@@ -9,44 +9,30 @@ type Token @entity {
   description: String!
   description_uk: String!
   artist_url: String!
-  twitter: Twitter! 
+  twitter_url: String!
+  twitter_username: String!
+  twitter_tweet: String!
   artist: String!
   edition: Int!
   updatedAtTimestamp: BigInt!
   owner: User!
 }
 
-type Twitter @entity {
-  url: String!
-  username: String!
-  tweet: String! 
-  token: Token! @derivedFrom(field: "twitter")  
-}
 
 type User @entity {
   id: ID!
   tokens: [Token!]! @derivedFrom(field: "owner")
 }
 
-type _Schema_ 
+type _Schema_
   @fulltext(
     name: "metaHistorySearch"
     language: en
     algorithm: rank
     include: [
-      "entity": "Token",
-      fields: [
-        {
-          "name": "name"
-        },
-        {
-          "name": "description"
-        },
-        {
-          "name": "artist"
-        },
-      ]
+      {
+        entity: "Token"
+        fields: [{ name: "name" }, { name: "description" }, { name: "artist" }]
+      }
     ]
-
   )
-
